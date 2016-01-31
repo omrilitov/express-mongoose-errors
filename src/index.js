@@ -1,10 +1,6 @@
 'use strict';
 
 export default function mongooseErrorsMiddleware (err, req, res, next) {
-  if (!err.name) {
-    return next(err);
-  }
-
   switch (err.name) {
   case 'ValidationError': {
       err.status = 400;
