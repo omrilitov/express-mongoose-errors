@@ -1,12 +1,14 @@
 'use strict';
 
-export default function mongooseErrorsMiddleware (err, req, res, next) {
+export default function (err, req, res, next) {
   switch (err.name) {
-  case 'ValidationError': {
+  case 'ValidationError':
+    {
       err.status = 400;
       break;
     }
-  case 'MongoError': {
+  case 'MongoError':
+    {
       if (err.code === 11000) {
         err.status = 409;
       }
