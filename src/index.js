@@ -1,21 +1,23 @@
 'use strict';
 
-export default function (err, req, res, next) {
-  switch (err.name) {
-  case 'ValidationError':
-    {
-      err.status = 400;
-      break;
-    }
-  case 'MongoError':
-    {
-      if (err.code === 11000) {
-        err.status = 409;
+export default function () {
+  return (err, req, res, next) => {
+    switch (err.name) {
+    case 'ValidationError':
+      {
+        err.status = 400;
+        break;
       }
+    case 'MongoError':
+      {
+        if (err.code === 11000) {
+          err.status = 409;
+        }
 
-      break;
+        break;
+      }
     }
-  }
 
-  next(err);
+    next(err);
+  };
 }
